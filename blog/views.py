@@ -6,6 +6,17 @@ def index(request):
     return render(
         request,
         'blog/index.html',
-        {'posts':posts,}
+        {
+            'posts':posts,
+        }
     )
-# Create your views here.
+def single_post_page(requset, pk):
+    post = Post.objects.get(pk=pk)
+
+    return render(
+        requset,
+        'blog/single_post_page.html',
+        {
+            'post':post,
+        }
+    )
