@@ -1,22 +1,8 @@
 from django.shortcuts import render
+from django.views.generic import ListView
 from .models import Post
 
-def index(request):
-    posts = Post.objects.all().order_by('-pk')
-    return render(
-        request,
-        'blog/index.html',
-        {
-            'posts':posts,
-        }
-    )
-def single_post_page(requset, pk):
-    post = Post.objects.get(pk=pk)
+class PostList(ListView):
+    model = Post
+    ordering = '-pk'
 
-    return render(
-        requset,
-        'blog/single_post_page.html',
-        {
-            'post':post,
-        }
-    )
