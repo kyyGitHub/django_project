@@ -30,12 +30,13 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/github/django_project/single_pages",
+    "last_opened_file_path": "C:/github/django_project/blog/templates/blog",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\github\django_project\blog\templates\blog" />
       <recent name="C:\github\django_project\single_pages" />
       <recent name="C:\github\django_project\blog" />
     </key>
