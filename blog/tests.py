@@ -201,8 +201,46 @@ class Testview(TestCase):
         self.assertEqual(last_post.title, 'Post Form 만들기')
         self.assertEqual(last_post.author.username, 'itachi')
 
+    def test_update_post(self):
+        update_post_url = f'/blog/update_post/{self.post_003.pk}/'
 
+        response = self.client.get(update_post_url)
+        self.assertNotEqual(response.status_code, 200)
 
+        self.assertNotEqual(self.post_003.author, self.user_naruto)
+        self.client.login(
+            username = self.user_naruto.username,
+            password = 'somepassword'
+        )
+        response = self.client.get(update_post_url)
+        self.assertEqual(response.status_code, 403)
+
+        self.client.login(
+            username = self.post_003.author.username,
+            password = 'somepassword'
+        )
+        response = self.client.get(update_post_url)
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        self.assertEqual('Edit Post - Blog', soup.title.text)
+        main_area = soup.find('div', id='main-area')
+        self.assertIn('Edit Post', main_area.text)
+
+        response = self.client.post(
+            update_post_url,
+             {
+                 'title':'세번째 포스트를 수정했습니다.',
+                 'content':'그림자 분신술!',
+                 'category':self.category_mode.pk
+             },
+            follow=True
+        )
+        soup = BeautifulSoup(response.content, 'html.parser')
+        main_area = soup.find('div', id='main-area')
+        self.assertIn('세번째 포스트를 수정했습니다.', main_area.text)
+        self.assertIn('그림자 분신술!', main_area.text)
+        self.assertIn(self.category_mode.name, main_area.text)
 
 
 
