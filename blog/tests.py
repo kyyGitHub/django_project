@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
-from .models import Post, Category
+from .models import Post, Category, Tag
 
 class Testview(TestCase):
     def setUp(self):
@@ -12,12 +12,18 @@ class Testview(TestCase):
         self.category_growing = Category.objects.create(name='성장과정', slug='성장과정')
         self.category_mode = Category.objects.create(name='모드변화', slug='모드변화')
 
+        self.tag_ama = Tag.objects.create(name='아마테라스', slug='아마테라스')
+        self.tag_uchiha = Tag.objects.create(name='uchiha', slug='uchiha')
+        self.tag_hello= Tag.objects.create(name='hello', slug='hello')
+
+
         self.post_001 = Post.objects.create(
             title='첫번째 포스트입니다.',
             content='우즈마키 나루토',
             category=self.category_growing,
             author=self.user_naruto
         )
+        self.post_001.tags.add(self.tag_hello)
 
         self.post_002 = Post.objects.create(
             title='두번째 포스트입니다.',
@@ -31,6 +37,10 @@ class Testview(TestCase):
             content='카테고리가 없을 수도 있죠',
             author=self.user_itachi
         )
+        self.post_003.tags.add(self.tag_uchiha)
+        self.post_003.tags.add(self.tag_ama)
+
+
 
     def navbar_test(self, soup):
         navbar = soup.nav
@@ -75,14 +85,24 @@ class Testview(TestCase):
         post_001_card = main_area.find('div', id='post-1')
         self.assertIn(self.post_001.title, post_001_card.text)
         self.assertIn(self.post_001.category.name, post_001_card.text)
+        self.assertIn(self.tag_hello.name, post_001_card.text)
+        self.assertNotIn(self.tag_ama.name, post_001_card.text)
+        self.assertNotIn(self.tag_uchiha.name, post_001_card.text)
 
         post_002_card = main_area.find('div', id='post-2')
         self.assertIn(self.post_002.title, post_002_card.text)
         self.assertIn(self.post_002.category.name, post_002_card.text)
+        self.assertNotIn(self.tag_hello.name, post_002_card.text)
+        self.assertNotIn(self.tag_ama.name, post_002_card.text)
+        self.assertNotIn(self.tag_uchiha.name, post_002_card.text)
+
 
         post_003_card = main_area.find('div', id='post-3')
         self.assertIn('미분류', post_003_card.text)
         self.assertIn(self.post_003.title, post_003_card.text)
+        self.assertNotIn(self.tag_hello.name, post_003_card.text)
+        self.assertIn(self.tag_ama.name, post_003_card.text)
+        self.assertIn(self.tag_uchiha.name, post_003_card.text)
 
         self.assertIn(self.user_naruto.username.upper(), main_area.text)
         self.assertIn(self.user_itachi.username.upper(), main_area.text)
@@ -115,6 +135,9 @@ class Testview(TestCase):
             self.assertIn(self.user_naruto.username.upper(), post_area.text)
             self.assertIn(self.post_001.content, post_area.text)
 
+            self.assertIn(self.tag_hello.name, post_area.text)
+            self.assertNotIn(self.tag_ama.name, post_area.text)
+            self.assertNotIn(self.tag_uchiha.name, post_area.text)
 
     def test_category_page(self):
         response = self.client.get(self.category_growing.get_absolute_url())
