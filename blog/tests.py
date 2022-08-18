@@ -235,13 +235,18 @@ class Testview(TestCase):
         self.assertEqual('Edit Post - Blog', soup.title.text)
         main_area = soup.find('div', id='main-area')
         self.assertIn('Edit Post', main_area.text)
+        
+        tag_str_input = main_area.find('input', id='id_tags_str')
+        self.assertTrue(tag_str_input)
+        self.assertIn('아마테라스; uchiha', tag_str_input.attrs['value'])
 
         response = self.client.post(
             update_post_url,
              {
                  'title':'세번째 포스트를 수정했습니다.',
                  'content':'그림자 분신술!',
-                 'category':self.category_mode.pk
+                 'category':self.category_mode.pk,
+                 'tags_str':'풍둔;대옥,나선환'
              },
             follow=True
         )
@@ -250,6 +255,12 @@ class Testview(TestCase):
         self.assertIn('세번째 포스트를 수정했습니다.', main_area.text)
         self.assertIn('그림자 분신술!', main_area.text)
         self.assertIn(self.category_mode.name, main_area.text)
+        self.assertIn('풍둔', main_area.text)
+        self.assertIn('대옥', main_area.text)
+        self.assertIn('나선환', main_area.text)
+        self.assertNotIn('uchiha', main_area.text)
+
+
 
 
 
