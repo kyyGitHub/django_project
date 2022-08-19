@@ -57,3 +57,9 @@ class Post(models.Model):
 
     def get_content_markdown(self):
         return markdown(self.content)
+
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists():
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else:
+            return f'http://doitdjango.com/avatar/id/143/e3445497d896a175/svg/{self.author.email}'

@@ -24,12 +24,11 @@
             {% for p in post_list %}
             <div class="card mb-4" id="post-{{ p.pk }}">
                 {% if p.head_image %}
-                <a href="{{p.get_absolute_url}}"><img class="card-img-top" src="{{ p.head_image.url }}"
-                                                      alt="{{ p }} head image" /></a>
+                <a href="{{p.get_absolute_url}}">
+                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image" /></a>
                 {% else %}
                 <a href="{{p.get_absolute_url}}">
-                    <img class="card-img-top" src="http://picsum.photos/seed/{{ p.id }}/600/200"
-                                                      alt="{{ p }} head image" /></a>
+                    <img class="card-img-top" src="http://picsum.photos/seed/{{ p.id }}/600/200" alt="{{ p }} head image" /></a>
                 {% endif %}
                 <div class="card-body">
                     {% if p.category %}
@@ -45,7 +44,7 @@
                         {{ p.created_at }} by
                     <a href="#">{{ p.author | upper }}</a>
                     </div>
-                    <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                    <p class="card-text">{{ p.content | truncatewords:60 }}</p>
                     {% if p.tags.exists %}
                         <i class="fa-solid fa-tags"></i>
                         {% for tag in p.tags.iterator %}
