@@ -1,19 +1,101 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang ="ko">
     <head>
         <meta charset="UTF-8">
         <title>나루토 랜선 엄마입니다.</title>
+        <link href="{% static 'blog/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static '/single_pages/css/about_me.css' %}" rel="stylesheet" type="text/css">
+        <script src="https://kit.fontawesome.com/80129e25cd.js" crossorigin="anonymous"></script>
     </head>
     <body>
-    <nav>
-      <a href="/blog/">Blog</a>
-      <a href="/about_me/">About me</a>
-    </nav>
 
-    <h1>안녕하세요. 나루토 엄마입니다.</h1>
-    <h2>이력</h2>
-    <h2>Portfolio</h2>
-    <h3>아직 만드는 중!</h3>
+    {% include 'blog/navbar.html' %}
 
+    <section>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>안녕하세요 나루토 랜선엄마 입니다.</h1>
+                    <br/>
+                    <p class="lead">
+                        이 블로그는 기본적으로 나루토의 성장과정과 모드변화를 카테고리로 분류해놓았습니다.
+                           이타치도 살짝쿵 넣어봤어요!
+                    </p>
+                    <ul>
+                        <li>CATEGORY</li>
+                        <ul>
+                            <li>우즈마키 나루토</li>
+                                <ul>
+                                    <li>성장과정 : 아기 - 소년전 - 질풍전 - 호카게</li>
+                                    <li>모드변화 : 일미 - 선인 - 구미 차크라 - 육도 선인</li>
+                                    <li>미분류 : 나선환!</li>
+                                </ul>
+                            <li>우치하 이타치</li>
+                                <ul>
+                                    <li>성장과정 : 아기 - 암부 - 아카츠키 - 예토전생</li>
+                                    <li>미분류 : 우치하 사변</li>
+                                </ul>
+                        </ul>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                      <img class="img-fluid" src="{%static 'single_pages/Images/naruto_family.jpg' %}">
+                      {{ post.author.username }}
+                      &nbsp;
+                      &nbsp;
+                      {{ post.created_at }}
+                              </span>
+                          </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light margin-for-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>PORTFOLIO</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card" data-toggle="modal" data-target="#minato">
+                        <img class="card-img-top" src="{% static 'single_pages/Images/minato.gif' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">波風ミナト</h5>
+                            <p>나미카제 미나토</p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="col-lg-4">
+                    <div class="card" data-toggle="modal" data-target="#naruto">
+                        <img class="card-img-top" src="{% static 'single_pages/Images/naruto.gif' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">うずまき ナルト</h5>
+                            <p>우즈마키 나루토</p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="col-lg-4">
+                    <div class="card" data-toggle="modal" data-target="#kushina">
+                        <img class="card-img-top" src="{% static 'single_pages/Images/kushina.gif' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">うずまきクシナ</h5>
+                            <p>우즈마키 쿠시나</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fixed-bottom">
+        {% include 'blog/footer.html' %}
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     </body>
 </html>

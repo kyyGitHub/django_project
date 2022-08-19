@@ -30,7 +30,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=30)
-    hook_test = models.CharField(max_length=100, blank=True)
+    hook_text = models.CharField(max_length=100, blank=True)
     content = MarkdownxField()
 
     created_at = models.DateTimeField(auto_now_add=True)
