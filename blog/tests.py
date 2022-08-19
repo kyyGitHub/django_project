@@ -260,6 +260,27 @@ class Testview(TestCase):
         self.assertIn('나선환', main_area.text)
         self.assertNotIn('uchiha', main_area.text)
 
+    def test_search(self):
+        post_about_ama = Post.objects.create(
+            title='아마테라스',
+            content='치잉-!',
+            author=self.user_itachi
+        )
+        response = self.client.get('/blog/search/아마테라스/')
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        main_area = soup.find('div', id='main-area')
+
+        self.assertIn('Search: 아마테라스 (2)', main_area.text)
+        self.assertNotIn(self.post_001.title, main_area.text)
+        self.assertNotIn(self.post_002.title, main_area.text)
+        self.assertIn(self.post_003.title, main_area.text)
+        self.assertIn(post_about_ama.title, main_area.text)
+
+
+
+
 
 
 

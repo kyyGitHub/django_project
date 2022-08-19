@@ -15,6 +15,7 @@
 
         <h1>
             랜선 아들래미 성장기
+            {% if search_info %}<small class="text_muted">{{ search_info }}</small>{% endif %}
             {% if category %}<span class="badge bg-secondary">{{ category }}</span>{% endif %}
             {% if tag %}<span class="badge bg-light text-dark"><i class="fas fa-tags"></i>{{ tag }} ({{ tag.post_set.count }})</span>{% endif %}
         </h1>
